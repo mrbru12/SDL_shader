@@ -4,6 +4,8 @@
 *.vcxproj
 *.filters
 *.user
+*.gitignore
+*.gitattributes
 
 # Project directories
 # ==============
@@ -16,6 +18,7 @@ bin_intermediate/
 # Libraries directories
 # ==============
 SDL_shader/vendor/
+SDL_shader/test/
 
 # Project files
 # ==============

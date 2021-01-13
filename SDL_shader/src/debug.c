@@ -3,13 +3,6 @@
 #include <stdio.h>
 #include <GL/glew.h>
 
-/*
-void gl_log(const char* title, const char* msg)
-{
-    printf("[OpenGL %s] (%s)\n", title, msg);
-}
-*/
-
 int gl_log_errors()
 {
     int result = 0;

@@ -40,7 +40,7 @@ void on_create()
     //      as calls de atributos como a glEnableVertexAttribArray() e glVertexAttribPointer()!!!
     GL_ASSERT(glGenVertexArrays(1, &vao));
     GL_ASSERT(glBindVertexArray(vao));
-
+    
     GL_ASSERT(glGenBuffers(1, &buffer));
     GL_ASSERT(glBindBuffer(GL_ARRAY_BUFFER, buffer));
     GL_ASSERT(glBufferData(GL_ARRAY_BUFFER, 20 * sizeof(float), positions, GL_STATIC_DRAW));
@@ -97,12 +97,7 @@ int main(int argc, char** argv)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-    SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-    SDL_Window* window = SDL_CreateWindow("SDL_shader Sandbox", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_OPENGL);
+    SDL_Window* window = SDL_GL_CreateWindow("SDL_shader Sandbox", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
     
     SDL_GLContext context = SDL_GL_CreateContext(window);
     
