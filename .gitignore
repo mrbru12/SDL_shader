@@ -10,8 +10,8 @@
 .vs/
 .vs/SDL_shader/v16/
 .git/
-Bin/
-Bin-Intermediate/
+bin/
+bin_intermediate/
 
 # Libraries directories
 # ==============
