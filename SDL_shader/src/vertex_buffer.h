@@ -23,9 +23,9 @@ typedef struct
 //       funções um pouco mais complexas precise de alguma coisa (o mesmo se aplica pras
 //       outras funções de buffers)
 // SDL_GL_VertexBuffer* SDL_GL_CreateVertexBuffer(void* data, unsigned int size);
-// void SDL_GL_DestroyVertexBuffer(SDL_GL_VertexBuffer* vbo);
+// void SDL_GL_DestroyVertexBuffer(SDL_GL_VertexBuffer* buffer);
 
 // void SDL_GL_VertexBufferData(SDL_GL_VertexArray* vertex_array, void* data, unsigned int size);
 
-// void SDL_GL_BindVertexBuffer(/*SDL_GL_VertexArray* vertex_array,*/ SDL_GL_VertexBuffer* vbo);
-// void SDL_GL_UnbindVertexBuffer(/*SDL_GL_VertexArray* vertex_array, SDL_GL_VertexBuffer* vbo*/);
+// void SDL_GL_BindVertexBuffer(/*SDL_GL_VertexArray* vertex_array,*/ SDL_GL_VertexBuffer* buffer);
+// void SDL_GL_UnbindVertexBuffer(/*SDL_GL_VertexArray* vertex_array, SDL_GL_VertexBuffer* buffer*/);

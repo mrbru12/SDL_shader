@@ -21,7 +21,7 @@ float vertex_buffer[] = {
 // > [type]: O tipo dos valores
 // > [normalized]: Se os valores devem ou não ser transformados para um range de 0.0 a 1.0
 // > [stride]: De quantos em quantos bytes o começo desse attrib aparece denovo
-// > [pointer]: Em que posição do vbo, em bytes, esse attrib aparece pela primeira vez
+// > [pointer]: Em que posição do buffer, em bytes, esse attrib aparece pela primeira vez
 
 GLint pos_attrib_location = glGetAttribLocation(shaderProgram, "pos");
 glEnableVertexAttribArray(pos_attrib_location);
