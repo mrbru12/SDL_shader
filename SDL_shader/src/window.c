@@ -11,5 +11,5 @@ SDL_Window* SDL_GL_CreateWindow(const char* title, int x, int y, int w, int h, U
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-    SDL_Window* window = SDL_CreateWindow(title, x, y, w, h, flags | SDL_WINDOW_OPENGL);
+    return SDL_CreateWindow(title, x, y, w, h, flags | SDL_WINDOW_OPENGL);
 }

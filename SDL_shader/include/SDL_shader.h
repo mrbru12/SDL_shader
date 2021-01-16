@@ -2,6 +2,7 @@
 
 // #include <GL/glew.h>
 // #include "../src/debug.h"
+#include "../src/buffer.h"
 #include "../src/vertex_buffer.h"
 #include "../src/index_buffer.h"
 #include "../src/vertex_array.h"
@@ -10,6 +11,7 @@
 #include "../src/renderer.h"
 
 // -- TODO --
+// * DAR UMA REFATORADA GERAL NO CÓDIGO, PRINCIPLAMENTE PROCURANDO POR PROBLEMAS DE MEMÓRIA E GAMBIARRAS
 // * Dar uma leve refatorada nas funções de compilar e linkar shaders pra deixa mais organziado.
 // * Fazer o meu próprio wraper do OpenGL ao invés de usar GLEW. Pelo que eu vi, na própria lib do SDL
 //   tem umas func que facilitam muito isso, como a SDL_GL_GetProcAddress() e etc...
@@ -36,6 +38,7 @@
 //   passar o callback de uma função pra ela, sempre que der algum erro no OpenGL ele vai simplesmente
 //   chamar a função que tu passou, deixando tudo mais simples e otimizado. OBS: lembrar que essa parte do
 //   debug só deve tar ativada quando tiver compilando em modo DEBUG!
+// * Olhar bem cada um dos arquivos, tanto .h como .c, pra ver onde tem TODOs pendentes pra fazer!!!
 
 // void SDL_InitShader(); 
 // Na verdade vai ter uma funça tipo CreateShaderRenderer() ou algo do tipo que já vai inicializar
