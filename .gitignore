@@ -12,6 +12,7 @@
 .vs/
 .vs/SDL_shader/v16/
 .git/
+Sandbox/
 bin/
 bin_intermediate/
 

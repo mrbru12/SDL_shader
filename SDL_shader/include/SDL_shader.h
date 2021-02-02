@@ -2,11 +2,12 @@
 
 // #include <GL/glew.h>
 // #include "../src/debug.h"
-#include "../src/buffer.h"
+// #include "../src/util/buffer.h"
 #include "../src/vertex_buffer.h"
-#include "../src/index_buffer.h"
+#include "../src/element_buffer.h"
 #include "../src/vertex_array.h"
 #include "../src/shader.h"
+#include "../src/texture.h"
 #include "../src/window.h"
 #include "../src/renderer.h"
 
@@ -38,7 +39,17 @@
 //   passar o callback de uma função pra ela, sempre que der algum erro no OpenGL ele vai simplesmente
 //   chamar a função que tu passou, deixando tudo mais simples e otimizado. OBS: lembrar que essa parte do
 //   debug só deve tar ativada quando tiver compilando em modo DEBUG!
-// * Olhar bem cada um dos arquivos, tanto .h como .c, pra ver onde tem TODOs pendentes pra fazer!!!
+// * Talvez fazer um sistema de uniforms que guarde os nomes globalmente em um mapa (tornando mais otimizado)
+//   pra ficar mais facil e simples de usar uniforms, sem precisar ficar pegando a localização manualmente, 
+//   podendo usar por exemplo: SDL_GL_SetUniform1f("u_color", 1.0f); OBS: Talvez já pegar todos os uniforms ao compilar
+//   a shader e deixar todas as localizações respectivas a cada nome guardadas dentro da struct da Shader, pra
+//   poder fazer por exemplo: void SDL_GL_SetUniform1f(SDL_GL_Shader* Shader, const char* name, float value);
+// * Talvez parar de usar #pragma once e começar a usar o jeito old school
+// * Checar todos os arquivos para ver se algum header do diretório util ta sendo incluido em algum 
+//   header principal (ler o util/Aviso.txt)
+// * Aprender melhor como usar o VAO pra não ficar bindando todas as coisas manualmente na implementação da funções
+// * Olhar bem cada um dos arquivos, tanto .h como .c, pra ver onde tem TODOs pendentes pra fazer!!! Também
+//   ficar de olho nos OBSs!!!
 
 // void SDL_InitShader(); 
 // Na verdade vai ter uma funça tipo CreateShaderRenderer() ou algo do tipo que já vai inicializar

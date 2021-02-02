@@ -1,15 +1,26 @@
 #include "shader.h"
 
-#include "debug.h"
+#include "util/debug.h"
+#include "util/dictionary.h"
+#include "util/disk_op.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <GL/glew.h>
 
-void compile_shader_source(unsigned int shader_id, const char* shader_source)
+// TODO: Concertar o logging dos erros de compilação e linking das shaders, que estão
+//       corrompidos por algum motivo
+
+struct SDL_GL_Shader
 {
-    // Settingand compiling shader's source code:
+    // TODO: Talvez não precise guaradar os ids da vert e da frag porque elas são deletadas depois do linking
+    unsigned int vertex_id, geometry_id, fragment_id, program_id;
+};
+
+static void compile_shader_source(unsigned int shader_id, const char* shader_source)
+{
+    // Settin and compiling shader's source code:
     glShaderSource(shader_id, 1, &shader_source, NULL);
     glCompileShader(shader_id);
     
@@ -31,31 +42,6 @@ void compile_shader_source(unsigned int shader_id, const char* shader_source)
         // glDeleteShader(shader_id);
     }
 }
-
-void concatenate_file_lines(const char* path, const size_t text_buffer_size, char* text_buffer)
-{
-    FILE* file;
-
-    // Check for errors at file path openning:
-    if (fopen_s(&file, path, "r"))
-        printf("Error while openning file: %s\n", path);
-
-    // Check if file != NULL to please the compiler:
-    if (file)
-    {
-        char line_buffer[512];
-        while (fgets(line_buffer, sizeof(line_buffer), file))
-            strncat_s(text_buffer, text_buffer_size, line_buffer, text_buffer_size - strlen(text_buffer));
-
-        fclose(file);
-    }
-}
-
-struct SDL_GL_Shader
-{
-    // TODO: Talvez não precise guaradar os ids da vert e da frag porque elas são deletadas depois do linking
-    unsigned int vertex_id, geometry_id, fragment_id, program_id;
-};
 
 // TODO: Fazer que nem no SDL e retornar NULL caso ocorra algum erro!!!
 SDL_GL_Shader* SDL_GL_ShaderFromMemory(const char* vertex_shader, const char* geometry_shader, const char* fragment_shader)
@@ -167,9 +153,9 @@ SDL_GL_Shader* SDL_GL_ShaderFromFile(const char* vertex_path, const char* geomet
     return shader;
 }
 
-unsigned int SDL_GL_GetShaderProgramId(SDL_GL_Shader* shader)
+int SDL_GL_GetUniformLocation(SDL_GL_Shader* shader, const char* name)
 {
-    return shader->program_id;
+    return glGetUniformLocation(shader->program_id, name);
 }
 
 void SDL_GL_BindShader(SDL_GL_Shader* shader)

@@ -25,7 +25,7 @@ struct SDL_GL_Renderer
 
     unsigned int shape_3d_vao; // OBS: talvez não precise de um pra 2D porque é só passar 1.0 no pos.z do 3D
     unsigned int shape_3d_vbo;
-    unsigned int shape_3d_ibo;
+    unsigned int shape_3d_ebo;
 };
 
 SDL_GL_Renderer* SDL_GL_CreateRenderer(SDL_Window* window)
@@ -62,14 +62,18 @@ SDL_GL_Renderer* SDL_GL_CreateRenderer(SDL_Window* window)
 
         // Position attribute: (X, Y, Z)
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
 
-        // Color attribute: (R, G, B)
+        // Color attribute: (R, G, B, A)
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
 
-        glGenBuffers(1, &renderer->shape_3d_ibo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ibo);
+        // Texture Coordinate attribute: (S, T)
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(7 * sizeof(float)));
+
+        glGenBuffers(1, &renderer->shape_3d_ebo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ebo);
 
         return renderer;
     }
@@ -99,6 +103,34 @@ void SDL_GL_RenderPresent(SDL_GL_Renderer* renderer)
 // TODO: Fazer uma função tipo draw_indexed() pra não precisar ficar colando o mesmo código
 //       do processo de draw do OpenGL em cada função RenderDraw... 
 
+void SDL_GL_RenderDrawLine(SDL_GL_Renderer* renderer, size_t size, void* data)
+{
+    glBindVertexArray(renderer->shape_3d_vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, renderer->shape_3d_vbo);
+    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+
+    unsigned int indices[] = {
+        0, 1
+    };
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, NULL);
+}
+
+/*
+void SDL_GL_RenderDrawLines(SDL_GL_Renderer* renderer, size_t size, void* data, unsigned int count)
+{
+    glBindVertexArray(renderer->shape_3d_vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, renderer->shape_3d_vbo);
+    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+
+    glDrawArrays(GL_LINES, 0, 2 * count);
+}
+*/
+
 void SDL_GL_RenderFillTriangle(SDL_GL_Renderer* renderer, size_t size, void* data)
 {
     glBindVertexArray(renderer->shape_3d_vao);
@@ -109,7 +141,7 @@ void SDL_GL_RenderFillTriangle(SDL_GL_Renderer* renderer, size_t size, void* dat
     unsigned int indices[] = {
         0, 1, 2
     };
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, NULL);
@@ -126,7 +158,7 @@ void SDL_GL_RenderFillRect(SDL_GL_Renderer* renderer, size_t size, void* data)
         0, 1, 2,
         2, 3, 0
     };
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer->shape_3d_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);

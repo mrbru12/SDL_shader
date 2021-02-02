@@ -1,0 +1,4 @@
+Não incluir nenhum dos arquivos dentro desse diretório em algum header principal (algum header que seja incluido direta ou indiretamente
+no SDL_shader.h). Apenas incluir dentro de arquivos .c ou em headers que não tornarão essas funções e structs públicas globalmente.
+Caso alguma função ou struct precise muito ser incluida em algum header principal, mover os arquivos .h e .c que declaram essa função
+ou struct para o diretório principal (src)
